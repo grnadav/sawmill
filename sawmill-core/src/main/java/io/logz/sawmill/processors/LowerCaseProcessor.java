@@ -19,13 +19,13 @@ public class LowerCaseProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
+    public ProcessResult process(Doc doc, Doc targetDoc) {
         if (!doc.hasField(field, String.class)) {
             return ProcessResult.failure(String.format("failed to lowercase field in path [%s], field is missing or not instance of [%s]", field, String.class));
         }
 
         String value = doc.getField(field);
-        doc.addField(field, value.toLowerCase());
+        targetDoc.addField(field, value.toLowerCase());
 
         return ProcessResult.success();
     }

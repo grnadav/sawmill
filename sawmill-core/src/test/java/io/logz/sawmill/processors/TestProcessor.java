@@ -15,7 +15,7 @@ public class TestProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
+    public ProcessResult process(Doc doc, Doc targetDoc) {
         return null;
     }
 

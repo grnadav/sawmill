@@ -366,7 +366,7 @@ public class PipelineExecutorTest {
     }
 
     private ProcessorExecutionStep createSleepExecutionStep(long millis) {
-        return new ProcessorExecutionStep("sleep1", (Doc doc) -> {
+        return new ProcessorExecutionStep("sleep1", (Doc doc, Doc targetDoc) -> {
 
             Thread.sleep(millis);
 
@@ -386,7 +386,7 @@ public class PipelineExecutorTest {
     }
 
     private Processor createAddFieldProcessor(String k, String v) {
-        return (Doc doc) -> {
+        return (Doc doc, Doc targetDoc) -> {
             doc.addField(k, v);
             return ProcessResult.success();
         };
@@ -397,7 +397,7 @@ public class PipelineExecutorTest {
     }
 
     private ProcessorExecutionStep createUnexpectedFailAlwaysExecutionStep() {
-        return new ProcessorExecutionStep("failHard1", (Doc doc) -> {
+        return new ProcessorExecutionStep("failHard1", (Doc doc, Doc targetDoc) -> {
             throw new RuntimeException("test failure");
         });
     }
@@ -423,15 +423,15 @@ public class PipelineExecutorTest {
     }
 
     private Processor createDropProcessor() {
-        return (Doc doc) -> ProcessResult.drop();
+        return (Doc doc, Doc targetDoc) -> ProcessResult.drop();
     }
 
     private Processor createFailAlwaysProcessor() {
-        return (Doc doc) -> ProcessResult.failure("test failure");
+        return (Doc doc, Doc targetDoc) -> ProcessResult.failure("test failure");
     }
 
     private Processor createFailAlwaysProcessor(ProcessorExecutionException e) {
-        return (Doc doc) -> ProcessResult.failure("test failure", e);
+        return (Doc doc, Doc targetDoc) -> ProcessResult.failure("test failure", e);
     }
 
     private ConditionalExecutionStep createConditionalExecutionStep(Condition condition, List<ExecutionStep> onTrue, List<ExecutionStep> onFalse) {

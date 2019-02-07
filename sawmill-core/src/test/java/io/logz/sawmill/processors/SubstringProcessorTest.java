@@ -23,21 +23,21 @@ public class SubstringProcessorTest {
         SubstringProcessor substringProcessor = createProcessor(SubstringProcessor.class, "field", field, "begin", begin, "end", end);
 
         Doc doc = createDoc(field, value);
-        ProcessResult processResult = substringProcessor.process(doc);
+        ProcessResult processResult = substringProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField(field)).isEqualTo(value.substring(begin, end));
 
         value = "this is short";
         doc = createDoc(field, value);
-        processResult = substringProcessor.process(doc);
+        processResult = substringProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField(field)).isEqualTo(value.substring(begin));
 
         value = "fail";
         doc = createDoc(field, value);
-        processResult = substringProcessor.process(doc);
+        processResult = substringProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
 
@@ -45,7 +45,7 @@ public class SubstringProcessorTest {
         doc = createDoc(field, value);
         
         substringProcessor = createProcessor(SubstringProcessor.class, "field", field, "begin", begin);
-        processResult = substringProcessor.process(doc);
+        processResult = substringProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField(field)).isEqualTo(value.substring(begin));
@@ -61,25 +61,25 @@ public class SubstringProcessorTest {
         SubstringProcessor substringProcessor = createProcessor(SubstringProcessor.class, "field", field, "begin", begin, "end", end);
 
         Doc doc = createDoc(field, value);
-        ProcessResult processResult = substringProcessor.process(doc);
+        ProcessResult processResult = substringProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
 
         value = true;
         doc = createDoc(field, value);
-        processResult = substringProcessor.process(doc);
+        processResult = substringProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
 
         value = Arrays.asList("fail");
         doc = createDoc(field, value);
-        processResult = substringProcessor.process(doc);
+        processResult = substringProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
 
         value = Collections.singletonMap("a", "map");
         doc = createDoc(field, value);
-        processResult = substringProcessor.process(doc);
+        processResult = substringProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
     }

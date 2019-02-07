@@ -31,7 +31,7 @@ public class AhoCorasickProcessorTest {
 
         AhoCorasickProcessor processor = createProcessor(AhoCorasickProcessor.class, config);
 
-        assertThat(processor.process(doc).isSucceeded()).isTrue();
+        assertThat(processor.process(doc, doc).isSucceeded()).isTrue();
 
         List<String> output = doc.getField(targetField);
         assertThat(output).isNotEmpty();
@@ -86,7 +86,7 @@ public class AhoCorasickProcessorTest {
     }
 
     private void assertFail(String targetField, Doc doc, AhoCorasickProcessor processor) {
-        assertThat(processor.process(doc).isSucceeded()).isFalse();
+        assertThat(processor.process(doc, doc).isSucceeded()).isFalse();
         assertThat(doc.hasField(targetField)).isFalse();
     }
 

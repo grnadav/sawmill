@@ -19,9 +19,9 @@ public class DocSizeProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
+    public ProcessResult process(Doc doc, Doc targetDoc) {
         String sourceAsJsonString = JsonUtils.toJsonString(doc.getSource());
-        doc.addField(targetField, Utf8.encodedLength(sourceAsJsonString));
+        targetDoc.addField(targetField, Utf8.encodedLength(sourceAsJsonString));
         return ProcessResult.success();
     }
 

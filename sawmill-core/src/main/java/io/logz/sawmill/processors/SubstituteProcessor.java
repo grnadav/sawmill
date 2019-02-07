@@ -28,7 +28,7 @@ public class SubstituteProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
+    public ProcessResult process(Doc doc, Doc targetDoc) {
         if (!doc.hasField(field, String.class)) {
             return ProcessResult.failure(String.format("failed to convert field in path [%s], field is missing or not instance of [%s]", field, String.class));
         }
@@ -36,7 +36,7 @@ public class SubstituteProcessor implements Processor {
         Matcher matcher = pattern.matcher(beforeSubstitute);
         String afterSubstitute = matcher.replaceAll(replacement);
 
-        doc.addField(field, afterSubstitute);
+        targetDoc.addField(field, afterSubstitute);
         return ProcessResult.success();
     }
 

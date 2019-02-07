@@ -20,7 +20,7 @@ public class DropProcessorTest {
 
         DropProcessor dropProcessor = createProcessor(DropProcessor.class, Collections.emptyMap());
 
-        ProcessResult processResult = dropProcessor.process(doc);
+        ProcessResult processResult = dropProcessor.process(doc, doc);
 
         assertThat(processResult.isDropped()).isTrue();
     }
@@ -32,7 +32,7 @@ public class DropProcessorTest {
         long numberOfDocs = 10;
         long numberOfDroppedDocs = LongStream.range(0, numberOfDocs)
                 .mapToObj((i) -> createDoc("drop", "it" + i))
-                .map(dropProcessor::process)
+                .map(doc -> dropProcessor.process(doc, doc))
                 .filter(ProcessResult::isDropped)
                 .count();
 

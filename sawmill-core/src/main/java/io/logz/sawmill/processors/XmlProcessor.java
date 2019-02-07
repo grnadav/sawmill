@@ -50,7 +50,7 @@ public class XmlProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
+    public ProcessResult process(Doc doc, Doc targetDoc) {
         if (!doc.hasField(field, String.class)) {
             return ProcessResult.failure("failed to parse xml in path [" + field + "], field is missing or not instance of String");
         }
@@ -83,12 +83,12 @@ public class XmlProcessor implements Processor {
                     String path = item.getValue();
                     if (doc.hasField(path)) {
                         if (evaluate instanceof List) {
-                            ((List)evaluate).forEach(val -> doc.appendList(path, val));
+                            ((List)evaluate).forEach(val -> targetDoc.appendList(path, val));
                         } else {
-                            doc.appendList(path, evaluate);
+                            targetDoc.appendList(path, evaluate);
                         }
                     } else {
-                        doc.addField(path, evaluate);
+                        targetDoc.addField(path, evaluate);
                     }
                 } catch (XPathExpressionException e) {
                     logger.trace("xpath evaluation failed", e);
@@ -99,9 +99,9 @@ public class XmlProcessor implements Processor {
         if (storeXml) {
             Map<String, Object> xmlNodes = extractNodes(parsed);
             if (StringUtils.isNotEmpty(targetField)) {
-                doc.addField(targetField, xmlNodes);
+                targetDoc.addField(targetField, xmlNodes);
             } else {
-                xmlNodes.forEach(doc::addField);
+                xmlNodes.forEach(targetDoc::addField);
             }
         }
         return ProcessResult.success();

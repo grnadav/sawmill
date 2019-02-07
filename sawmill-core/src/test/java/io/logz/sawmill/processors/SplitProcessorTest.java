@@ -23,7 +23,7 @@ public class SplitProcessorTest {
 
         SplitProcessor splitProcessor = createProcessor(SplitProcessor.class, createConfig("field", field, "separator", ","));
 
-        ProcessResult processResult = splitProcessor.process(doc);
+        ProcessResult processResult = splitProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField(field)).isEqualTo(value);
@@ -39,7 +39,7 @@ public class SplitProcessorTest {
 
         SplitProcessor splitProcessor = createProcessor(SplitProcessor.class, createConfig("field", field, "separator", separator));
 
-        ProcessResult processResult = splitProcessor.process(doc);
+        ProcessResult processResult = splitProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat(doc.hasField(field, List.class)).isTrue();
@@ -56,7 +56,7 @@ public class SplitProcessorTest {
 
         SplitProcessor splitProcessor = createProcessor(SplitProcessor.class, createConfig("field", field, "separator", separator));
 
-        ProcessResult processResult = splitProcessor.process(doc);
+        ProcessResult processResult = splitProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat(doc.hasField(field, List.class)).isTrue();
@@ -72,7 +72,7 @@ public class SplitProcessorTest {
 
         SplitProcessor splitProcessor = createProcessor(SplitProcessor.class, createConfig("field", field, "separator", ","));
 
-        ProcessResult processResult = splitProcessor.process(doc);
+        ProcessResult processResult = splitProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
         assertThat((int) doc.getField(field)).isEqualTo(value);
@@ -87,7 +87,7 @@ public class SplitProcessorTest {
 
         SplitProcessor splitProcessor = createProcessor(SplitProcessor.class, createConfig("field", field, "separator", ","));
 
-        ProcessResult processResult = splitProcessor.process(doc);
+        ProcessResult processResult = splitProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
         assertThat(doc.hasField(field)).isFalse();

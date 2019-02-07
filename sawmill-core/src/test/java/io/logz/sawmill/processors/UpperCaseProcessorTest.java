@@ -31,7 +31,7 @@ public class UpperCaseProcessorTest {
 
         UpperCaseProcessor upperCaseProcessor = createProcessor(UpperCaseProcessor.class, "fields", fields);
 
-        ProcessResult processResult = upperCaseProcessor.process(doc);
+        ProcessResult processResult = upperCaseProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField("field1")).isEqualTo("LOWER CASE");
@@ -49,7 +49,7 @@ public class UpperCaseProcessorTest {
 
         UpperCaseProcessor upperCaseProcessor = createProcessor(UpperCaseProcessor.class, "fields", fields);
 
-        ProcessResult processResult = upperCaseProcessor.process(doc);
+        ProcessResult processResult = upperCaseProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
         String errorMessage = processResult.getError().get().getMessage();

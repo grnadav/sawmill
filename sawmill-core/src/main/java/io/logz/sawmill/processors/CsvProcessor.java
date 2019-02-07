@@ -51,7 +51,7 @@ public class CsvProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
+    public ProcessResult process(Doc doc, Doc targetDoc) {
         if (!doc.hasField(field, String.class)) {
             return ProcessResult.failure(String.format("failed to parse csv, couldn't find field [%s] or not instance of String", field));
         }
@@ -88,9 +88,9 @@ public class CsvProcessor implements Processor {
         });
 
         if (targetField != null) {
-            doc.addField(targetField, csv);
+            targetDoc.addField(targetField, csv);
         } else {
-            csv.forEach(doc::addField);
+            csv.forEach(targetDoc::addField);
         }
 
         return ProcessResult.success();

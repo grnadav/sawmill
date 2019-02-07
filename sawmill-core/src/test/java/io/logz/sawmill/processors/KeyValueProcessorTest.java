@@ -36,7 +36,7 @@ public class KeyValueProcessorTest {
 
         KeyValueProcessor kvProcessor = createProcessor(KeyValueProcessor.class, config);
 
-        ProcessResult processResult = kvProcessor.process(doc);
+        ProcessResult processResult = kvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField("simple")).isEqualTo("value");
@@ -58,7 +58,7 @@ public class KeyValueProcessorTest {
 
         Map<String, Object> originalSource = doc.getSource();
 
-        ProcessResult processResult = kvProcessor.process(doc);
+        ProcessResult processResult = kvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat(doc.getSource()).isEqualTo(originalSource);
@@ -73,7 +73,7 @@ public class KeyValueProcessorTest {
 
         KeyValueProcessor kvProcessor = createProcessor(KeyValueProcessor.class, config);
 
-        ProcessResult processResult = kvProcessor.process(doc);
+        ProcessResult processResult = kvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
     }
@@ -87,7 +87,7 @@ public class KeyValueProcessorTest {
 
         KeyValueProcessor kvProcessor = createProcessor(KeyValueProcessor.class, config);
 
-        ProcessResult processResult = kvProcessor.process(doc);
+        ProcessResult processResult = kvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
     }
@@ -101,7 +101,7 @@ public class KeyValueProcessorTest {
 
         KeyValueProcessor kvProcessor = createProcessor(KeyValueProcessor.class, config);
 
-        ProcessResult processResult = kvProcessor.process(doc);
+        ProcessResult processResult = kvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
     }
@@ -117,7 +117,7 @@ public class KeyValueProcessorTest {
 
         KeyValueProcessor kvProcessor = createProcessor(KeyValueProcessor.class, config);
 
-        ProcessResult processResult = kvProcessor.process(doc);
+        ProcessResult processResult = kvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat(doc.hasField(targetField)).isTrue();
@@ -141,7 +141,7 @@ public class KeyValueProcessorTest {
 
         KeyValueProcessor kvProcessor = createProcessor(KeyValueProcessor.class, config);
 
-        ProcessResult processResult = kvProcessor.process(doc);
+        ProcessResult processResult = kvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat(doc.hasField("kv")).isTrue();
@@ -164,7 +164,7 @@ public class KeyValueProcessorTest {
 
         KeyValueProcessor kvProcessor = createProcessor(KeyValueProcessor.class, config);
 
-        ProcessResult processResult = kvProcessor.process(doc);
+        ProcessResult processResult = kvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField("simple")).isEqualTo("value");
@@ -190,7 +190,7 @@ public class KeyValueProcessorTest {
 
         KeyValueProcessor kvProcessor = createProcessor(KeyValueProcessor.class, config);
 
-        ProcessResult processResult = kvProcessor.process(doc);
+        ProcessResult processResult = kvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField("KVsimple")).isEqualTo("value");
@@ -216,7 +216,7 @@ public class KeyValueProcessorTest {
 
         KeyValueProcessor kvProcessor = createProcessor(KeyValueProcessor.class, config);
 
-        ProcessResult processResult = kvProcessor.process(doc);
+        ProcessResult processResult = kvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat(doc.hasField("simple")).isFalse();
@@ -240,7 +240,7 @@ public class KeyValueProcessorTest {
 
         KeyValueProcessor kvProcessor = createProcessor(KeyValueProcessor.class, config);
 
-        ProcessResult processResult = kvProcessor.process(doc);
+        ProcessResult processResult = kvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField("simple")).isEqualTo("value");
@@ -261,7 +261,7 @@ public class KeyValueProcessorTest {
 
         KeyValueProcessor kvProcessor = createProcessor(KeyValueProcessor.class, config);
 
-        ProcessResult processResult = kvProcessor.process(doc);
+        ProcessResult processResult = kvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField("simple")).isEqualTo("value");
@@ -282,7 +282,7 @@ public class KeyValueProcessorTest {
 
         KeyValueProcessor kvProcessor = createProcessor(KeyValueProcessor.class, config);
 
-        ProcessResult processResult = kvProcessor.process(doc);
+        ProcessResult processResult = kvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((List) doc.getField("sameKey")).isEqualTo(Arrays.asList("value1", "value2", "value3", "value4"));
@@ -298,7 +298,7 @@ public class KeyValueProcessorTest {
 
         KeyValueProcessor kvProcessor = createProcessor(KeyValueProcessor.class, config);
 
-        ProcessResult processResult = kvProcessor.process(doc);
+        ProcessResult processResult = kvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField("sameKey")).isEqualTo("value1");
@@ -315,7 +315,7 @@ public class KeyValueProcessorTest {
 
         KeyValueProcessor kvProcessor = createProcessor(KeyValueProcessor.class, config);
 
-        ProcessResult processResult = kvProcessor.process(doc);
+        ProcessResult processResult = kvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat(doc.hasField(key)).isFalse();

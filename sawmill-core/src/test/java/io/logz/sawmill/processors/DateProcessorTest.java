@@ -37,7 +37,7 @@ public class DateProcessorTest {
 
         DateProcessor dateProcessor = createProcessor(DateProcessor.class, config);
 
-        assertThat(dateProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(dateProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat((String)doc.getField(targetField)).isEqualTo(zonedDateTime.format(DateProcessor.ELASTIC));
     }
 
@@ -56,7 +56,7 @@ public class DateProcessorTest {
 
         DateProcessor dateProcessor = createProcessor(DateProcessor.class, config);
 
-        assertThat(dateProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(dateProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat((String)doc.getField(targetField)).isEqualTo(zonedDateTime.format(DateProcessor.ELASTIC));
     }
 
@@ -75,7 +75,7 @@ public class DateProcessorTest {
 
         DateProcessor dateProcessor = createProcessor(DateProcessor.class, config);
 
-        assertThat(dateProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(dateProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat((String) doc.getField(targetField)).isEqualTo(zonedDateTime.format(DateProcessor.ELASTIC));
     }
 
@@ -94,7 +94,7 @@ public class DateProcessorTest {
 
         DateProcessor dateProcessor = createProcessor(DateProcessor.class, config);
 
-        assertThat(dateProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(dateProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat((String) doc.getField(targetField)).isEqualTo(zonedDateTime.format(DateProcessor.ELASTIC));
     }
 
@@ -113,7 +113,7 @@ public class DateProcessorTest {
 
         DateProcessor dateProcessor = createProcessor(DateProcessor.class, config);
 
-        assertThat(dateProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(dateProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat((String) doc.getField(targetField)).isEqualTo(zonedDateTime.format(DateProcessor.ELASTIC));
     }
 
@@ -134,12 +134,12 @@ public class DateProcessorTest {
 
         DateProcessor dateProcessor = createProcessor(DateProcessor.class, config);
 
-        assertThat(dateProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(dateProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat((String) doc.getField(targetField)).isEqualTo(zonedDateTime.format(DateProcessor.ELASTIC));
 
         doc = createDoc(field, iso8601Format2);
 
-        assertThat(dateProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(dateProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat((String) doc.getField(targetField)).isEqualTo(zonedDateTime.format(DateProcessor.ELASTIC));
     }
 
@@ -165,7 +165,7 @@ public class DateProcessorTest {
 
             ZonedDateTime expectedDateTime = LocalDateTime.parse(dateString, formatter).atZone(zoneId);
 
-            assertThat(dateProcessor.process(doc).isSucceeded()).isTrue();
+            assertThat(dateProcessor.process(doc, doc).isSucceeded()).isTrue();
             assertThat((String) doc.getField(targetField)).isEqualTo(expectedDateTime.format(DateProcessor.ELASTIC));
         });
     }
@@ -184,11 +184,11 @@ public class DateProcessorTest {
 
         DateProcessor dateProcessor = createProcessor(DateProcessor.class, config);
 
-        assertThat(dateProcessor.process(docWithMap).isSucceeded()).isFalse();
+        assertThat(dateProcessor.process(docWithMap, docWithMap).isSucceeded()).isFalse();
 
         Doc docWithList = createDoc(field, Arrays.asList("its", "a", "list", "should", "not", "work"));
 
-        assertThat(dateProcessor.process(docWithList).isSucceeded()).isFalse();
+        assertThat(dateProcessor.process(docWithList, docWithList).isSucceeded()).isFalse();
     }
 
     @Test
@@ -210,7 +210,7 @@ public class DateProcessorTest {
 
         DateProcessor dateProcessor = createProcessor(DateProcessor.class, config);
 
-        assertThat(dateProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(dateProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat((String) doc.getField(targetField)).isEqualTo(expectedDateTime.format(DateProcessor.ELASTIC));
     }
 
@@ -233,7 +233,7 @@ public class DateProcessorTest {
 
         DateProcessor dateProcessor = createProcessor(DateProcessor.class, config);
 
-        assertThat(dateProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(dateProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat((String) doc.getField(targetField)).isEqualTo(expectedDateTime.format(DateProcessor.ELASTIC));
     }
 
@@ -257,7 +257,7 @@ public class DateProcessorTest {
 
         DateProcessor dateProcessor = createProcessor(DateProcessor.class, config);
 
-        assertThat(dateProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(dateProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat((String) doc.getField(targetField)).isEqualTo(expectedDateTime.format(DateProcessor.ELASTIC));
     }
 
@@ -276,7 +276,7 @@ public class DateProcessorTest {
 
         DateProcessor dateProcessor = createProcessor(DateProcessor.class, config);
 
-        assertThat(dateProcessor.process(doc).isSucceeded()).isFalse();
+        assertThat(dateProcessor.process(doc, doc).isSucceeded()).isFalse();
         assertThat(doc.hasField(targetField)).isFalse();
     }
 
@@ -298,7 +298,7 @@ public class DateProcessorTest {
                 "formats", Arrays.asList("dd/MMM/yyyy:HH:mm:ss"));
 
         DateProcessor dateProcessor = createProcessor(DateProcessor.class, config);
-        assertThat(dateProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(dateProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat((String) doc.getField(targetField)).isEqualTo(expectedDateTime.format(DateProcessor.ELASTIC));
     }
 
@@ -316,7 +316,7 @@ public class DateProcessorTest {
 
         DateProcessor dateProcessor = createProcessor(DateProcessor.class, config);
 
-        assertThat(dateProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(dateProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat((String) doc.getField(targetField)).isEqualTo(zonedDateTime.format(DateProcessor.ELASTIC));
     }
 
@@ -334,7 +334,7 @@ public class DateProcessorTest {
                 "timeZone", null);
 
         DateProcessor dateProcessor = createProcessor(DateProcessor.class, config);
-        assertThat(dateProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(dateProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat((String) doc.getField(targetField)).isEqualTo(zonedDateTime.format(DateProcessor.ELASTIC));
     }
 
@@ -364,7 +364,7 @@ public class DateProcessorTest {
 
         DateProcessor dateProcessor = createProcessor(DateProcessor.class, config);
 
-        assertThat(dateProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(dateProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat((String)doc.getField(targetField)).isEqualTo(zonedDateTime.format(DateProcessor.UNIX));
     }
 
@@ -385,7 +385,7 @@ public class DateProcessorTest {
 
         DateProcessor dateProcessor = createProcessor(DateProcessor.class, config);
 
-        assertThat(dateProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(dateProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat((String)doc.getField(targetField)).isEqualTo(zonedDateTime.format(DateProcessor.ELASTIC));
     }
 
@@ -409,7 +409,7 @@ public class DateProcessorTest {
 
         DateProcessor dateProcessor = createProcessor(DateProcessor.class, config);
 
-        assertThat(dateProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(dateProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat((String)doc.getField(targetField)).isEqualTo(zonedDateTime.format(customOutputFormatter));
     }
 
@@ -431,7 +431,7 @@ public class DateProcessorTest {
 
         DateProcessor dateProcessor = createProcessor(DateProcessor.class, config);
 
-        assertThat(dateProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(dateProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat((String) doc.getField(targetField)).isEqualTo(zonedDateTime.format(DateProcessor.UNIX_MS));
     }
 }

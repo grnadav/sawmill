@@ -28,7 +28,7 @@ public class RenameFieldProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
+    public ProcessResult process(Doc doc, Doc targetDoc) {
         List<String> missingFields = new ArrayList<>();
         for (Map.Entry<Template, Template> rename : renames.entrySet()) {
             String renderedFrom = rename.getKey().render(doc);
@@ -38,8 +38,10 @@ public class RenameFieldProcessor implements Processor {
             }
             String renderedTo = rename.getValue().render(doc);
             Object fieldValue = doc.getField(renderedFrom);
-            doc.removeField(renderedFrom);
-            doc.addField(renderedTo, fieldValue);
+            if (targetDoc.hasField(renderedFrom)) {
+                targetDoc.removeField(renderedFrom);
+            }
+            targetDoc.addField(renderedTo, fieldValue);
         }
 
         if (!missingFields.isEmpty()) {

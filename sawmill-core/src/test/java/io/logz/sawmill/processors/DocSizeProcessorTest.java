@@ -20,7 +20,7 @@ public class DocSizeProcessorTest {
     public void testConstructor(){
         Doc doc = createDoc("docSize", 15);
         DocSizeProcessor sizeProcessor = createProcessor(DocSizeProcessor.class, createConfig("targetField", "docSize_test"));
-        ProcessResult processResult = sizeProcessor.process(doc);
+        ProcessResult processResult = sizeProcessor.process(doc, doc);
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat(doc.hasField("docSize_test")).isTrue();
     }
@@ -32,7 +32,7 @@ public class DocSizeProcessorTest {
         Map<String, Object> origMap = new HashMap<>(doc.getSource());
 
         DocSizeProcessor sizeProcessor = createProcessor(DocSizeProcessor.class);
-        ProcessResult processResult = sizeProcessor.process(doc);
+        ProcessResult processResult = sizeProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat(doc.hasField("docSize")).isTrue();
@@ -47,7 +47,7 @@ public class DocSizeProcessorTest {
         Map<String, Object> origMap = new HashMap<>(doc.getSource());
 
         DocSizeProcessor sizeProcessor = createProcessor(DocSizeProcessor.class);
-        ProcessResult processResult = sizeProcessor.process(doc);
+        ProcessResult processResult = sizeProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat(doc.hasField("docSize")).isTrue();

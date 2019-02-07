@@ -36,7 +36,7 @@ public class AhoCorasickProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
+    public ProcessResult process(Doc doc, Doc targetDoc) {
         if (!doc.hasField(field, String.class)) {
             return ProcessResult.failure(String.format("failed to process date, field in path [%s] is missing", field));
         }
@@ -44,7 +44,7 @@ public class AhoCorasickProcessor implements Processor {
         Collection<Emit> emits = ahoCorasickModel.search(doc.getField(field));
         List<String> result = emits.stream().map(emit -> emit.getKeyword()).collect(Collectors.toList());
         if (CollectionUtils.isNotEmpty(result)) {
-            doc.addField(targetField, result);
+            targetDoc.addField(targetField, result);
             return ProcessResult.success();
         }
         return ProcessResult.failure("Failed to match input words for target field - " + targetField);

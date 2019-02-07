@@ -23,7 +23,7 @@ public class SubstringProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
+    public ProcessResult process(Doc doc, Doc targetDoc) {
         if (!doc.hasField(field, String.class)) {
             return ProcessResult.failure(String.format("failed to substring field [%s], field is missing or not instance of String", field));
         }
@@ -41,7 +41,7 @@ public class SubstringProcessor implements Processor {
              substring = value.substring(begin);
         }
 
-        doc.addField(field, substring);
+        targetDoc.addField(field, substring);
 
         return ProcessResult.success();
     }

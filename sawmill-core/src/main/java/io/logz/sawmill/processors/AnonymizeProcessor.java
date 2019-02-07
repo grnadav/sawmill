@@ -29,7 +29,7 @@ public class AnonymizeProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
+    public ProcessResult process(Doc doc, Doc targetDoc) {
         List<String> missingFields = new ArrayList<>();
         for (String field : fields) {
             if (!doc.hasField(field, String.class)) {
@@ -38,7 +38,7 @@ public class AnonymizeProcessor implements Processor {
             }
 
             String value = doc.getField(field);
-            doc.addField(field, algorithm.anonimize(value));
+            targetDoc.addField(field, algorithm.anonimize(value));
         }
 
         if (!missingFields.isEmpty()) {

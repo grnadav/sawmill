@@ -80,7 +80,7 @@ public class GeoIpProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
+    public ProcessResult process(Doc doc, Doc targetDoc) {
         if (!doc.hasField(sourceField, String.class)) {
             return ProcessResult.failure(String.format("failed to get ip from [%s], field is missing or not instance of [%s]", sourceField, String.class));
         }
@@ -103,8 +103,8 @@ public class GeoIpProcessor implements Processor {
         }
 
         if (geoIp != null) {
-            doc.addField(targetField.render(doc), geoIp);
-            doc.appendList("tags", tagsOnSuccess);
+            targetDoc.addField(targetField.render(doc), geoIp);
+            targetDoc.appendList("tags", tagsOnSuccess);
         }
 
         return ProcessResult.success();

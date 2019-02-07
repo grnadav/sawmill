@@ -104,7 +104,7 @@ public class KeyValueProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) throws InterruptedException {
+    public ProcessResult process(Doc doc, Doc targetDoc) throws InterruptedException {
         if (!doc.hasField(field)) {
             return ProcessResult.failure(String.format("failed to process kv, couldn't find field [%s]", field));
         }
@@ -134,9 +134,9 @@ public class KeyValueProcessor implements Processor {
         }
 
         if (targetField != null) {
-            doc.addField(targetField.render(doc), kvMap);
+            targetDoc.addField(targetField.render(doc), kvMap);
         } else {
-            kvMap.forEach(doc::addField);
+            kvMap.forEach(targetDoc::addField);
         }
 
         return ProcessResult.success();

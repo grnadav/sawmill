@@ -39,12 +39,12 @@ public class GrokProcessorTest {
         config.put("patterns", patterns);
         GrokProcessor grokProcessor = factory.create(config);
 
-        ProcessResult processResult = grokProcessor.process(doc);
+        ProcessResult processResult = grokProcessor.process(doc, doc);
         assertApacheLog(doc, processResult);
 
         Doc doc2 = createDoc(field, SYS_LOG_SAMPLE);
 
-        ProcessResult processResult2 = grokProcessor.process(doc2);
+        ProcessResult processResult2 = grokProcessor.process(doc2, doc2);
         assertSysLog(doc2, processResult2);
     }
 
@@ -78,7 +78,7 @@ public class GrokProcessorTest {
         config.put("overwrite", Arrays.asList("verb"));
         GrokProcessor grokProcessor = factory.create(config);
 
-        ProcessResult processResult = grokProcessor.process(doc);
+        ProcessResult processResult = grokProcessor.process(doc, doc);
 
         assertApacheLog(doc, processResult);
         assertThat(doc.hasField("extra_fields")).isFalse();
@@ -96,7 +96,7 @@ public class GrokProcessorTest {
         config.put("patterns", patterns);
         GrokProcessor grokProcessor = factory.create(config);
 
-        ProcessResult processResult = grokProcessor.process(doc);
+        ProcessResult processResult = grokProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((List)doc.getField("http-verb")).isEqualTo(Arrays.asList("POST", "GET"));
@@ -114,7 +114,7 @@ public class GrokProcessorTest {
         config.put("patterns", patterns);
         GrokProcessor grokProcessor = factory.create(config);
 
-        ProcessResult processResult = grokProcessor.process(doc);
+        ProcessResult processResult = grokProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat(doc.hasField("verb_grokfailure")).isFalse();
@@ -133,7 +133,7 @@ public class GrokProcessorTest {
         config.put("patterns", patterns);
         GrokProcessor grokProcessor = factory.create(config);
 
-        ProcessResult processResult = grokProcessor.process(doc);
+        ProcessResult processResult = grokProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String)doc.getField("custompattern")).isEqualTo("message");
@@ -151,7 +151,7 @@ public class GrokProcessorTest {
         config.put("patterns", patterns);
         GrokProcessor grokProcessor = factory.create(config);
 
-        ProcessResult processResult = grokProcessor.process(doc);
+        ProcessResult processResult = grokProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String)doc.getField("custom-pattern")).isEqualTo("message");
@@ -169,7 +169,7 @@ public class GrokProcessorTest {
         config.put("patterns", patterns);
         GrokProcessor grokProcessor = factory.create(config);
 
-        ProcessResult processResult = grokProcessor.process(doc);
+        ProcessResult processResult = grokProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat(doc.getField("int").getClass()).isEqualTo(doc.getField("long").getClass()).isEqualTo(Long.class);
@@ -188,7 +188,7 @@ public class GrokProcessorTest {
         config.put("patterns", patterns);
         GrokProcessor grokProcessor = factory.create(config);
 
-        ProcessResult processResult = grokProcessor.process(doc);
+        ProcessResult processResult = grokProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
         assertThat((List)doc.getField("tags")).isEqualTo(Arrays.asList("_grokparsefailure"));
@@ -208,7 +208,7 @@ public class GrokProcessorTest {
         config.put("tagsOnFailure", tagsOnFailure);
         GrokProcessor grokProcessor = factory.create(config);
 
-        ProcessResult processResult = grokProcessor.process(doc);
+        ProcessResult processResult = grokProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
         assertThat((List)doc.getField("tags")).isEqualTo(tagsOnFailure);
@@ -226,7 +226,7 @@ public class GrokProcessorTest {
         config.put("patterns", patterns);
         GrokProcessor grokProcessor = factory.create(config);
 
-        ProcessResult processResult = grokProcessor.process(doc);
+        ProcessResult processResult = grokProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
     }
@@ -244,7 +244,7 @@ public class GrokProcessorTest {
         config.put("ignoreMissing", false);
         GrokProcessor grokProcessor = factory.create(config);
 
-        ProcessResult processResult = grokProcessor.process(doc);
+        ProcessResult processResult = grokProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
     }
@@ -281,10 +281,10 @@ public class GrokProcessorTest {
         config.put("ignoreMissing", false);
         GrokProcessor grokProcessor = factory.create(config);
 
-        grokProcessor.process(doc1);
+        grokProcessor.process(doc1, doc1);
 
         Doc doc2 = createDoc("message", "194.239.185.67 - - [26/Jan/2017:14:32:46 +0100] \"GET /religionsfaget/udskoling/typo3temp/Assets/464cb9f3a6.css?1467394170 HTTP/1\" 200 1196 \"http://www.clioonline.dk/religionsfaget/udskoling/emner/religioner/islam/islams-trosgrundlag/\" \"Mozilla/5.0 (X11; CrOS armv7l 8872.76.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.105 Safari/537.36\"");
-        grokProcessor.process(doc2);
+        grokProcessor.process(doc2, doc2);
 
         assertThat(doc2.hasField("extra_fields")).isFalse();
         assertThat(doc2.getField("httpversion").toString()).isEqualTo("1.0");

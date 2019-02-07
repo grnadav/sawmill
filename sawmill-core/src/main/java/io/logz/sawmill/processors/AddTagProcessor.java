@@ -26,9 +26,9 @@ public class AddTagProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
-        List<String> renderedTags = tags.stream().map(tag -> tag.render(doc)).collect(Collectors.toList());
-        doc.appendList("tags", renderedTags);
+    public ProcessResult process(Doc sourceDoc, Doc targetDoc) {
+        List<String> renderedTags = tags.stream().map(tag -> tag.render(sourceDoc)).collect(Collectors.toList());
+        targetDoc.appendList("tags", renderedTags);
         return ProcessResult.success();
     }
 

@@ -31,7 +31,7 @@ public class MathProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
+    public ProcessResult process(Doc doc, Doc targetDoc) {
         Map<String, Double> variablesMap = new HashMap<>();
 
         for (String variable : variables) {
@@ -51,7 +51,7 @@ public class MathProcessor implements Processor {
         mathExpressionProvider.provide().setVariables(variablesMap);
 
         try {
-            doc.addField(targetField,  mathExpressionProvider.provide().evaluate());
+            targetDoc.addField(targetField,  mathExpressionProvider.provide().evaluate());
         } catch (ArithmeticException e) {
             return ProcessResult.failure("Division by zero!");
         }

@@ -47,7 +47,7 @@ public class JsonProcessorTest {
 
         JsonProcessor jsonProcessor = createProcessor(JsonProcessor.class, createConfig("field", field, "targetField", targetField));
 
-        ProcessResult processResult = jsonProcessor.process(doc);
+        ProcessResult processResult = jsonProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((Map) doc.getField(targetField)).isEqualTo(jsonMap);
@@ -66,7 +66,7 @@ public class JsonProcessorTest {
 
         JsonProcessor jsonProcessor = createProcessor(JsonProcessor.class, createConfig("field", field, "targetField", targetField));
 
-        ProcessResult processResult = jsonProcessor.process(doc);
+        ProcessResult processResult = jsonProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((Map) doc.getField("json")).isEqualTo(jsonMap);
@@ -83,7 +83,7 @@ public class JsonProcessorTest {
 
         JsonProcessor jsonProcessor = createProcessor(JsonProcessor.class, createConfig("field", field));
 
-        ProcessResult processResult = jsonProcessor.process(doc);
+        ProcessResult processResult = jsonProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         jsonMap.entrySet().forEach(entry ->
@@ -102,7 +102,7 @@ public class JsonProcessorTest {
 
         JsonProcessor jsonProcessor = createProcessor(JsonProcessor.class, createConfig("field", field));
 
-        ProcessResult processResult = jsonProcessor.process(doc);
+        ProcessResult processResult = jsonProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat(doc.hasField(field)).isTrue();
@@ -119,7 +119,7 @@ public class JsonProcessorTest {
 
         JsonProcessor jsonProcessor = createProcessor(JsonProcessor.class, createConfig("field", field));
 
-        ProcessResult processResult = jsonProcessor.process(doc);
+        ProcessResult processResult = jsonProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
         assertThat((List)doc.getField("tags")).isEqualTo(Arrays.asList("_jsonparsefailure"));
@@ -134,7 +134,7 @@ public class JsonProcessorTest {
 
         JsonProcessor jsonProcessor = createProcessor(JsonProcessor.class, createConfig("field", fieldNotExists));
 
-        ProcessResult processResult = jsonProcessor.process(doc);
+        ProcessResult processResult = jsonProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
     }

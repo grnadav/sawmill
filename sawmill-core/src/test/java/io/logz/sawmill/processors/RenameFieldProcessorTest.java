@@ -26,7 +26,7 @@ public class RenameFieldProcessorTest {
                 "to", nestedToField);
         RenameFieldProcessor renameFieldProcessor = createProcessor(RenameFieldProcessor.class, config);
 
-        assertThat(renameFieldProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(renameFieldProcessor.process(doc, doc).isSucceeded()).isTrue();
 
         assertThat((String)doc.getField(nestedToField)).isEqualTo("value");
         assertThatThrownBy(() -> doc.getField(fromField)).isInstanceOf(IllegalStateException.class);
@@ -42,7 +42,7 @@ public class RenameFieldProcessorTest {
                 "to", toField);
         RenameFieldProcessor renameFieldProcessor = createProcessor(RenameFieldProcessor.class, config);
 
-        assertThat(renameFieldProcessor.process(doc).isSucceeded()).isFalse();
+        assertThat(renameFieldProcessor.process(doc, doc).isSucceeded()).isFalse();
 
         assertThatThrownBy(() -> doc.getField(toField)).isInstanceOf(IllegalStateException.class);
     }
@@ -58,7 +58,7 @@ public class RenameFieldProcessorTest {
 
         RenameFieldProcessor renameFieldProcessor = createProcessor(RenameFieldProcessor.class, config);
 
-        assertThat(renameFieldProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(renameFieldProcessor.process(doc, doc).isSucceeded()).isTrue();
 
         assertThat((String)doc.getField("field-c")).isEqualTo("value-of-c");
     }
@@ -74,7 +74,7 @@ public class RenameFieldProcessorTest {
 
         RenameFieldProcessor renameFieldProcessor = createProcessor(RenameFieldProcessor.class, config);
 
-        assertThat(renameFieldProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(renameFieldProcessor.process(doc, doc).isSucceeded()).isTrue();
 
         assertThat((String)doc.getField("field-b")).isEqualTo("value-of-c");
     }
@@ -93,7 +93,7 @@ public class RenameFieldProcessorTest {
 
         RenameFieldProcessor renameFieldProcessor = createProcessor(RenameFieldProcessor.class, config);
 
-        assertThat(renameFieldProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(renameFieldProcessor.process(doc, doc).isSucceeded()).isTrue();
 
         Map renamedValue = doc.getField("field-b");
         assertThat(renamedValue.get("x")).isEqualTo(5);
@@ -123,7 +123,7 @@ public class RenameFieldProcessorTest {
 
         RenameFieldProcessor renameFieldProcessor = createProcessor(RenameFieldProcessor.class, config);
 
-        ProcessResult processResult = renameFieldProcessor.process(doc);
+        ProcessResult processResult = renameFieldProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         for (int i = 1; i <= 5; i++) {

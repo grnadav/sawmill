@@ -26,9 +26,9 @@ public class RemoveTagProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
+    public ProcessResult process(Doc doc, Doc targetDoc) {
         List<String> renderedTags = tags.stream().map(tag -> tag.render(doc)).collect(Collectors.toList());
-        doc.removeFromList("tags", renderedTags);
+        targetDoc.removeFromList("tags", renderedTags);
         return ProcessResult.success();
     }
 

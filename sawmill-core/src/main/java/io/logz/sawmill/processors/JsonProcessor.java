@@ -25,7 +25,7 @@ public class JsonProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
+    public ProcessResult process(Doc doc, Doc targetDoc) {
         if (!doc.hasField(field, String.class)) {
             return ProcessResult.failure(String.format("failed to parse json, couldn't find field [%s] or not instance of [%s]", field, String.class));
         }
@@ -36,14 +36,14 @@ public class JsonProcessor implements Processor {
         try {
             jsonMap = JsonUtils.fromJsonString(Map.class, jsonString);
         } catch (RuntimeException e) {
-            doc.appendList("tags", "_jsonparsefailure");
+            targetDoc.appendList("tags", "_jsonparsefailure");
             return ProcessResult.failure(String.format("failed to parse json, couldn't deserialize from json [%s]", jsonString));
         }
 
         if (targetField != null) {
-            doc.addField(targetField.render(doc), jsonMap);
+            targetDoc.addField(targetField.render(doc), jsonMap);
         } else {
-            jsonMap.forEach(doc::addField);
+            jsonMap.forEach(targetDoc::addField);
         }
         return ProcessResult.success();
     }

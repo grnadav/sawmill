@@ -64,7 +64,7 @@ public class ConvertFieldProcessorTest {
 
         ConvertFieldProcessor convertFieldProcessor = createProcessor(ConvertFieldProcessor.class, config);
 
-        ProcessResult processResult = convertFieldProcessor.process(doc);
+        ProcessResult processResult = convertFieldProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
         String errorMessage = processResult.getError().get().getMessage();
@@ -86,7 +86,7 @@ public class ConvertFieldProcessorTest {
 
         ConvertFieldProcessor convertFieldProcessor = createProcessor(ConvertFieldProcessor.class, config);
 
-        ProcessResult processResult = convertFieldProcessor.process(doc);
+        ProcessResult processResult = convertFieldProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
         String errorMessage = processResult.getError().get().getMessage();
@@ -108,7 +108,7 @@ public class ConvertFieldProcessorTest {
 
         ConvertFieldProcessor convertFieldProcessor = createProcessor(ConvertFieldProcessor.class, config);
 
-        ProcessResult processResult = convertFieldProcessor.process(doc);
+        ProcessResult processResult = convertFieldProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
         String errorMessage = processResult.getError().get().getMessage();
@@ -130,7 +130,7 @@ public class ConvertFieldProcessorTest {
 
         ConvertFieldProcessor convertFieldProcessor = createProcessor(ConvertFieldProcessor.class, config);
 
-        ProcessResult processResult = convertFieldProcessor.process(doc);
+        ProcessResult processResult = convertFieldProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
         String errorMessage = processResult.getError().get().getMessage();
@@ -178,7 +178,7 @@ public class ConvertFieldProcessorTest {
 
         Doc doc = createDoc(path, value);
 
-        assertThat(convertFieldProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(convertFieldProcessor.process(doc, doc).isSucceeded()).isTrue();
 
         assertThat((T) doc.getField(path)).isEqualTo(result);
     }

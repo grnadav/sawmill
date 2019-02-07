@@ -28,7 +28,7 @@ public class AppendListProcessorTest {
         Doc doc = createDoc(FIELD_NAME, EXISTING_VALUE);
 
         // Tests no exception thrown when there is a field with different type
-        assertThat(appendListProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(appendListProcessor.process(doc, doc).isSucceeded()).isTrue();
 
         assertThat((List) doc.getField(FIELD_NAME)).isEqualTo(Arrays.asList(EXISTING_VALUE, APPENDED_VALUE));
     }
@@ -39,7 +39,7 @@ public class AppendListProcessorTest {
         AppendListProcessor appendListProcessor = createProcessor(AppendListProcessor.class, "path", FIELD_NAME, "values", values);
 
         Doc doc = createDoc("field", "value");
-        assertThat(appendListProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(appendListProcessor.process(doc, doc).isSucceeded()).isTrue();
 
         assertThat((String) doc.getField("field")).isEqualTo("value");
         assertThat((List) doc.getField(FIELD_NAME)).isEqualTo(values);
@@ -54,7 +54,7 @@ public class AppendListProcessorTest {
         AppendListProcessor appendListProcessor = createProcessor(AppendListProcessor.class, "path", FIELD_NAME, "values", values);
         Doc doc = createDoc(FIELD_NAME, existingList);
 
-        assertThat(appendListProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(appendListProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat((List) doc.getField(FIELD_NAME)).isEqualTo(Arrays.asList(EXISTING_VALUE, APPENDED_VALUE, ANOTHER_VALUE));
     }
 
@@ -65,7 +65,7 @@ public class AppendListProcessorTest {
 
         Doc doc = createDoc(TEMPLATE_FIELD, TEMPLATE_VALUE,
                 "path", FIELD_NAME);
-        assertThat(appendListProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(appendListProcessor.process(doc, doc).isSucceeded()).isTrue();
 
         assertThat((List) doc.getField(FIELD_NAME)).isEqualTo(Arrays.asList(ANOTHER_VALUE, TEMPLATE_VALUE));
     }

@@ -27,11 +27,11 @@ public class AddAndRemoveFieldProcessorTest {
 
         Doc doc = createDoc("field", "value");
 
-        assertThat(addFieldProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(addFieldProcessor.process(doc, doc).isSucceeded()).isTrue();
 
         assertThat((String) doc.getField(path)).isEqualTo("shalom");
 
-        assertThat(removeFieldProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(removeFieldProcessor.process(doc, doc).isSucceeded()).isTrue();
 
         assertThatThrownBy(() ->  doc.getField(path)).isInstanceOf(IllegalStateException.class);
     }
@@ -43,7 +43,7 @@ public class AddAndRemoveFieldProcessorTest {
 
         Doc doc = createDoc("field", "value");
 
-        assertThat(removeFieldProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(removeFieldProcessor.process(doc, doc).isSucceeded()).isTrue();
     }
 
     @Test
@@ -55,11 +55,11 @@ public class AddAndRemoveFieldProcessorTest {
         Doc doc = createDoc("field", "Hola",
                 "objectField", ImmutableMap.of("innerKey", "innerValue"));
 
-        assertThat(addFieldProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(addFieldProcessor.process(doc, doc).isSucceeded()).isTrue();
 
         assertThat((String) doc.getField("messageHola")).isEqualTo("{\"innerKey\":\"innerValue\"}");
 
-        assertThat(removeFieldProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(removeFieldProcessor.process(doc, doc).isSucceeded()).isTrue();
 
         assertThatThrownBy(() ->  doc.getField("messageHola")).isInstanceOf(IllegalStateException.class);
     }
@@ -75,7 +75,7 @@ public class AddAndRemoveFieldProcessorTest {
                 "field4", "value4",
                 "withTemplate", "4");
 
-        assertThat(removeFieldProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(removeFieldProcessor.process(doc, doc).isSucceeded()).isTrue();
 
         assertThat(doc.getSource().size()).isEqualTo(1);
 

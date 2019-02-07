@@ -29,7 +29,7 @@ public class TranslateProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
+    public ProcessResult process(Doc doc, Doc targetDoc) {
         if (!doc.hasField(field, String.class)) {
             return ProcessResult.failure(String.format("failed to translate field in path [%s], field is missing or not instance of String", field));
         }
@@ -43,9 +43,9 @@ public class TranslateProcessor implements Processor {
                 return ProcessResult.failure(String.format("failed to translate field in path [%s], value=[%s] is not in dictionary", field, value));
             }
 
-            doc.addField(targetField, fallback.render(doc));
+            targetDoc.addField(targetField, fallback.render(doc));
         } else {
-            doc.addField(targetField, translation);
+            targetDoc.addField(targetField, translation);
         }
 
         return ProcessResult.success();

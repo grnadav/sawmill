@@ -42,7 +42,7 @@ public class XmlProcessorTest {
 
         XmlProcessor xmlProcessor = createProcessor(XmlProcessor.class, "field", field);
 
-        ProcessResult processResult = xmlProcessor.process(doc);
+        ProcessResult processResult = xmlProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField("country.id")).isEqualTo("1");
@@ -71,7 +71,7 @@ public class XmlProcessorTest {
 
         XmlProcessor xmlProcessor = createProcessor(XmlProcessor.class, config);
 
-        ProcessResult processResult = xmlProcessor.process(doc);
+        ProcessResult processResult = xmlProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((List) doc.getField("lang")).isEqualTo(Arrays.asList("Hebrew", "Arabic"));
@@ -87,7 +87,7 @@ public class XmlProcessorTest {
 
         XmlProcessor xmlProcessor = createProcessor(XmlProcessor.class, "field", field);
 
-        ProcessResult processResult = xmlProcessor.process(doc);
+        ProcessResult processResult = xmlProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
     }

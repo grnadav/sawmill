@@ -30,7 +30,7 @@ public class SubstituteProcessorTest {
 
         SubstituteProcessor substituteProcessor = createProcessor(SubstituteProcessor.class, config);
 
-        ProcessResult processResult = substituteProcessor.process(doc);
+        ProcessResult processResult = substituteProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField(field)).isEqualTo("I.m g.nna .remove. .ome spec.al characters");
@@ -51,7 +51,7 @@ public class SubstituteProcessorTest {
 
         SubstituteProcessor substituteProcessor = createProcessor(SubstituteProcessor.class, config);
 
-        ProcessResult processResult = substituteProcessor.process(doc);
+        ProcessResult processResult = substituteProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField(field)).isEqualTo("{\"some\": invalid,\"json\": keys,\"to\": fix }");
@@ -73,7 +73,7 @@ public class SubstituteProcessorTest {
 
         SubstituteProcessor substituteProcessor = createProcessor(SubstituteProcessor.class, config);
 
-        ProcessResult processResult = substituteProcessor.process(doc);
+        ProcessResult processResult = substituteProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
     }

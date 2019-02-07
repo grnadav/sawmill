@@ -25,8 +25,8 @@ public class AddFieldProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
-        doc.addField(path.render(doc), getValueFunction.apply(doc));
+    public ProcessResult process(Doc doc, Doc targetDoc) {
+        targetDoc.addField(path.render(doc), getValueFunction.apply(doc));
         return ProcessResult.success();
     }
 

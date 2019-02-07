@@ -22,7 +22,7 @@ public class MathProcessorTest {
 
         MathProcessor mathProcessor = createProcessor(MathProcessor.class, "expression", expression, "targetField", targetField);
 
-        ProcessResult processResult = mathProcessor.process(doc);
+        ProcessResult processResult = mathProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((Double) doc.getField(targetField)).isEqualTo(5 + 10.5d * 10 / (5 + 7));
@@ -38,7 +38,7 @@ public class MathProcessorTest {
 
         MathProcessor mathProcessor = createProcessor(MathProcessor.class, "expression", expression, "targetField", targetField);
 
-        ProcessResult processResult = mathProcessor.process(doc);
+        ProcessResult processResult = mathProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((Double) doc.getField(targetField)).isEqualTo(5 + 10.5d * 10 / Math.pow((5 + 7), 2));
@@ -64,7 +64,7 @@ public class MathProcessorTest {
 
         MathProcessor mathProcessor = createProcessor(MathProcessor.class, "expression", expression, "targetField", targetField);
 
-        ProcessResult processResult = mathProcessor.process(doc);
+        ProcessResult processResult = mathProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
     }
@@ -76,13 +76,13 @@ public class MathProcessorTest {
 
         String expression = "5 / 0";
         MathProcessor mathProcessor = createProcessor(MathProcessor.class, "expression", expression, "targetField", targetField);
-        ProcessResult processResult = mathProcessor.process(doc);
+        ProcessResult processResult = mathProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
 
         expression = "5 / {{field1}}";
         mathProcessor = createProcessor(MathProcessor.class, "expression", expression, "targetField", targetField);
-        processResult = mathProcessor.process(doc);
+        processResult = mathProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
     }
@@ -94,14 +94,14 @@ public class MathProcessorTest {
 
         String expression = "abs(-300)";
         MathProcessor mathProcessor = createProcessor(MathProcessor.class, "expression", expression, "targetField", targetField);
-        ProcessResult processResult = mathProcessor.process(doc);
+        ProcessResult processResult = mathProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((Double) doc.getField(targetField)).isEqualTo(300);
 
         expression = "abs(300)";
         mathProcessor = createProcessor(MathProcessor.class, "expression", expression, "targetField", targetField);
-        processResult = mathProcessor.process(doc);
+        processResult = mathProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((Double) doc.getField(targetField)).isEqualTo(300);

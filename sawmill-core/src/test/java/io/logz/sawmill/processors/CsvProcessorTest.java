@@ -25,7 +25,7 @@ public class CsvProcessorTest {
 
         CsvProcessor csvProcessor = new CsvProcessor.Factory().create(config);
 
-        ProcessResult processResult = csvProcessor.process(doc);
+        ProcessResult processResult = csvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField("column1")).isEqualTo("1");
@@ -51,7 +51,7 @@ public class CsvProcessorTest {
 
         CsvProcessor csvProcessor = new CsvProcessor.Factory().create(config);
 
-        ProcessResult processResult = csvProcessor.process(doc);
+        ProcessResult processResult = csvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((Long) doc.getField("id")).isEqualTo(1l);
@@ -76,7 +76,7 @@ public class CsvProcessorTest {
 
         CsvProcessor csvProcessor = new CsvProcessor.Factory().create(config);
 
-        ProcessResult processResult = csvProcessor.process(doc);
+        ProcessResult processResult = csvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField("id")).isEqualTo("1");
@@ -102,7 +102,7 @@ public class CsvProcessorTest {
 
         CsvProcessor csvProcessor = new CsvProcessor.Factory().create(config);
 
-        ProcessResult processResult = csvProcessor.process(doc);
+        ProcessResult processResult = csvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField("id")).isEqualTo("1");
@@ -127,7 +127,7 @@ public class CsvProcessorTest {
 
         CsvProcessor csvProcessor = new CsvProcessor.Factory().create(config);
 
-        ProcessResult processResult = csvProcessor.process(doc);
+        ProcessResult processResult = csvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField("column1")).isEqualTo("1");
@@ -152,7 +152,7 @@ public class CsvProcessorTest {
 
         CsvProcessor csvProcessor = new CsvProcessor.Factory().create(config);
 
-        ProcessResult processResult = csvProcessor.process(doc);
+        ProcessResult processResult = csvProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField("column1")).isEqualTo("1");

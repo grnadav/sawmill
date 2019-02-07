@@ -40,7 +40,7 @@ public class UserAgentProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
+    public ProcessResult process(Doc doc, Doc targetDoc) {
         if (!doc.hasField(field, String.class)) {
             return ProcessResult.failure(String.format("failed to parse user agent, couldn't find field [%s] or not instance of [%s]", field, String.class));
         }
@@ -49,7 +49,7 @@ public class UserAgentProcessor implements Processor {
 
         if (uaString.length() > truncatedInputLength) {
             uaString = uaString.substring(0, truncatedInputLength);
-            doc.appendList("tags", tagOnTruncated);
+            targetDoc.appendList("tags", tagOnTruncated);
         }
 
         Client client = uaParserProvider.provide().parse(uaString);
@@ -75,11 +75,9 @@ public class UserAgentProcessor implements Processor {
         }
 
         if (targetField != null) {
-            doc.addField(targetField.render(doc), userAgent);
+            targetDoc.addField(targetField.render(doc), userAgent);
         } else {
-            userAgent.entrySet().forEach(property -> {
-                doc.addField(prefix + property.getKey(), property.getValue());
-            });
+            userAgent.forEach((key, value) -> targetDoc.addField(prefix + key, value));
         }
 
         return ProcessResult.success();

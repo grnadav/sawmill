@@ -19,14 +19,14 @@ public class AddAndRemoveTagProcessorTest {
         Doc doc = createDoc("tags", "value");
 
         // Tests no exception thrown in case of none tags
-        assertThat(removeTagProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(removeTagProcessor.process(doc, doc).isSucceeded()).isTrue();
 
-        assertThat(addTagProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(addTagProcessor.process(doc, doc).isSucceeded()).isTrue();
 
         assertThat(((List)doc.getField("tags")).contains("value")).isTrue();
         assertThat(((List)doc.getField("tags")).contains("test_tag")).isTrue();
 
-        assertThat(removeTagProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(removeTagProcessor.process(doc, doc).isSucceeded()).isTrue();
 
         assertThat(((List)doc.getField("tags")).contains("test_tag")).isFalse();
     }
@@ -38,13 +38,13 @@ public class AddAndRemoveTagProcessorTest {
         RemoveTagProcessor removeTagProcessor = createProcessor(RemoveTagProcessor.class, "tags", tags);
         Doc doc = createDoc("field1", "value");
 
-        assertThat(addTagProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(addTagProcessor.process(doc, doc).isSucceeded()).isTrue();
 
         for (String tag : tags) {
             assertThat(((List) doc.getField("tags")).contains(tag)).isTrue();
         }
 
-        assertThat(removeTagProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(removeTagProcessor.process(doc, doc).isSucceeded()).isTrue();
 
         for (String tag : tags) {
             assertThat(((List) doc.getField("tags")).contains(tag)).isFalse();
@@ -60,14 +60,14 @@ public class AddAndRemoveTagProcessorTest {
                 "field", "specialTag");
 
         // Tests no exception thrown in case of none tags
-        assertThat(removeTagProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(removeTagProcessor.process(doc, doc).isSucceeded()).isTrue();
 
-        assertThat(addTagProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(addTagProcessor.process(doc, doc).isSucceeded()).isTrue();
 
         assertThat(((List)doc.getField("tags")).contains("value")).isTrue();
         assertThat(((List)doc.getField("tags")).contains("specialTag1")).isTrue();
 
-        assertThat(removeTagProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(removeTagProcessor.process(doc, doc).isSucceeded()).isTrue();
 
         assertThat(((List)doc.getField("tags")).contains("specialTag1")).isFalse();
     }

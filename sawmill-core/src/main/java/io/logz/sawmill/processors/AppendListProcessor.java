@@ -31,9 +31,9 @@ public class AppendListProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
+    public ProcessResult process(Doc doc, Doc targetDoc) {
         List<String> renderedValues = values.stream().map(value -> value.render(doc)).collect(Collectors.toList());
-        doc.appendList(path.render(doc), renderedValues);
+        targetDoc.appendList(path.render(doc), renderedValues);
         return ProcessResult.success();
     }
 

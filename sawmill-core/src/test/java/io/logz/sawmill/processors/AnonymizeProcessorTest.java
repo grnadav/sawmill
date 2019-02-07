@@ -34,7 +34,7 @@ public class AnonymizeProcessorTest {
 
         AnonymizeProcessor anonymizeProcessor = createProcessor(AnonymizeProcessor.class, config);
 
-        ProcessResult processResult = anonymizeProcessor.process(doc);
+        ProcessResult processResult = anonymizeProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
         String errorMessage = processResult.getError().get().getMessage();
@@ -54,7 +54,7 @@ public class AnonymizeProcessorTest {
 
         AnonymizeProcessor anonymizeProcessor = createProcessor(AnonymizeProcessor.class, config);
 
-        ProcessResult processResult = anonymizeProcessor.process(doc);
+        ProcessResult processResult = anonymizeProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String)doc.getField("field1")).isEqualTo(DigestUtils.sha256Hex("value1"));
@@ -72,7 +72,7 @@ public class AnonymizeProcessorTest {
 
         AnonymizeProcessor anonymizeProcessor = createProcessor(AnonymizeProcessor.class, config);
 
-        ProcessResult processResult = anonymizeProcessor.process(doc);
+        ProcessResult processResult = anonymizeProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String)doc.getField("field1")).isEqualTo(DigestUtils.sha384Hex("value1"));
@@ -90,7 +90,7 @@ public class AnonymizeProcessorTest {
 
         AnonymizeProcessor anonymizeProcessor = createProcessor(AnonymizeProcessor.class, config);
 
-        ProcessResult processResult = anonymizeProcessor.process(doc);
+        ProcessResult processResult = anonymizeProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String)doc.getField("field1")).isEqualTo(DigestUtils.sha512Hex("value1"));
@@ -108,7 +108,7 @@ public class AnonymizeProcessorTest {
 
         AnonymizeProcessor anonymizeProcessor = createProcessor(AnonymizeProcessor.class, config);
 
-        ProcessResult processResult = anonymizeProcessor.process(doc);
+        ProcessResult processResult = anonymizeProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String)doc.getField("field1")).isEqualTo(DigestUtils.md5Hex("value1"));

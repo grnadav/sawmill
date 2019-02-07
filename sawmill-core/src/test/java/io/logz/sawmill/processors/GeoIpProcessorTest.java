@@ -27,7 +27,7 @@ public class GeoIpProcessorTest {
 
         Doc doc = createDoc(source, ip);
 
-        ProcessResult processResult = geoIpProcessor.process(doc);
+        ProcessResult processResult = geoIpProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat(doc.hasField("geoip")).isTrue();
@@ -61,7 +61,7 @@ public class GeoIpProcessorTest {
 
         Doc doc = createDoc(source, ip, "geoipField", "geo");
 
-        assertThat(geoIpProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(geoIpProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat(doc.hasField("geo")).isTrue();
         Map<String, Object> geoIp = doc.getField("geo");
         GeoIpProcessor.Property.ALL_PROPERTIES.stream().forEach(property -> {
@@ -83,7 +83,7 @@ public class GeoIpProcessorTest {
 
         Doc doc = createDoc(source, ip);
 
-        assertThat(geoIpProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(geoIpProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat(doc.hasField(target)).isFalse();
         assertThat(doc.hasField("tags")).isFalse();
     }
@@ -101,7 +101,7 @@ public class GeoIpProcessorTest {
 
         Doc doc = createDoc(source, ip);
 
-        assertThat(geoIpProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(geoIpProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat(doc.hasField(target)).isFalse();
     }
 
@@ -118,7 +118,7 @@ public class GeoIpProcessorTest {
 
         Doc doc = createDoc(source, ip);
 
-        assertThat(geoIpProcessor.process(doc).isSucceeded()).isTrue();
+        assertThat(geoIpProcessor.process(doc, doc).isSucceeded()).isTrue();
         assertThat(doc.hasField(target)).isFalse();
     }
 

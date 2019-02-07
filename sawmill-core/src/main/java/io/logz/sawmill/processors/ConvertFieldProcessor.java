@@ -34,7 +34,7 @@ public class ConvertFieldProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
+    public ProcessResult process(Doc doc, Doc targetDoc) {
         List<String> errorMessages = new ArrayList<>();
         for (String path : paths) {
             if (!doc.hasField(path)) {
@@ -55,12 +55,18 @@ public class ConvertFieldProcessor implements Processor {
                 continue;
             }
 
-            boolean succeeded = doc.removeField(path);
-            if (succeeded) {
-                doc.addField(path, afterCast);
-            }
-            else {
-                errorMessages.add(String.format("failed to convert field in path [%s] to %s, value [%s].", path, fieldType, beforeCast));
+            if (targetDoc.hasField(path)) {
+
+                boolean succeeded = targetDoc.removeField(path);
+                if (succeeded) {
+                    targetDoc.addField(path, afterCast);
+                }
+                else {
+                    errorMessages.add(String.format("failed to convert field in path [%s] to %s, value [%s].", path, fieldType, beforeCast));
+                }
+            } else {
+
+                    targetDoc.addField(path, afterCast);
             }
         }
         if (errorMessages.isEmpty()) {

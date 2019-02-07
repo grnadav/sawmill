@@ -32,7 +32,7 @@ public class TranslateProcessorTest {
 
         TranslateProcessor translateProcessor = createProcessor(TranslateProcessor.class, config);
 
-        ProcessResult processResult = translateProcessor.process(doc);
+        ProcessResult processResult = translateProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField(targetField)).isEqualTo("value1");
@@ -53,7 +53,7 @@ public class TranslateProcessorTest {
 
         TranslateProcessor translateProcessor = createProcessor(TranslateProcessor.class, config);
 
-        ProcessResult processResult = translateProcessor.process(doc);
+        ProcessResult processResult = translateProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
         assertThat(doc.hasField(targetField)).isFalse();
@@ -76,7 +76,7 @@ public class TranslateProcessorTest {
 
         TranslateProcessor translateProcessor = createProcessor(TranslateProcessor.class, config);
 
-        ProcessResult processResult = translateProcessor.process(doc);
+        ProcessResult processResult = translateProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField(targetField)).isEqualTo("fallback");
@@ -100,7 +100,7 @@ public class TranslateProcessorTest {
 
         TranslateProcessor translateProcessor = createProcessor(TranslateProcessor.class, config);
 
-        ProcessResult processResult = translateProcessor.process(doc);
+        ProcessResult processResult = translateProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField(targetField)).isEqualTo("value2");
@@ -123,11 +123,11 @@ public class TranslateProcessorTest {
 
         TranslateProcessor translateProcessor = createProcessor(TranslateProcessor.class, config);
 
-        ProcessResult processResult = translateProcessor.process(doc);
+        ProcessResult processResult = translateProcessor.process(doc, doc);
         assertThat(processResult.isSucceeded()).isFalse();
 
         doc = createDoc("anotherField", "value");
-        processResult = translateProcessor.process(doc);
+        processResult = translateProcessor.process(doc, doc);
         assertThat(processResult.isSucceeded()).isFalse();
     }
 

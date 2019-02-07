@@ -20,7 +20,7 @@ public class LowerCaseProcessorTest {
 
         LowerCaseProcessor lowerCaseProcessor = createProcessor(LowerCaseProcessor.class, createConfig("field", field));
 
-        ProcessResult processResult = lowerCaseProcessor.process(doc);
+        ProcessResult processResult = lowerCaseProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField(field)).isEqualTo(value.toLowerCase());
@@ -35,7 +35,7 @@ public class LowerCaseProcessorTest {
 
         LowerCaseProcessor lowerCaseProcessor = createProcessor(LowerCaseProcessor.class, createConfig("field", field));
 
-        ProcessResult processResult = lowerCaseProcessor.process(doc);
+        ProcessResult processResult = lowerCaseProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
         assertThat((int) doc.getField(field)).isEqualTo(value);
@@ -50,7 +50,7 @@ public class LowerCaseProcessorTest {
 
         LowerCaseProcessor lowerCaseProcessor = createProcessor(LowerCaseProcessor.class, createConfig("field", field));
 
-        ProcessResult processResult = lowerCaseProcessor.process(doc);
+        ProcessResult processResult = lowerCaseProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
         assertThat(doc.hasField(field)).isFalse();

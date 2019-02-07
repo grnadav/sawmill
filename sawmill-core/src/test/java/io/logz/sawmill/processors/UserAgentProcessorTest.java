@@ -25,7 +25,7 @@ public class UserAgentProcessorTest {
                 "targetField", targetField);
         UserAgentProcessor uaProceesor = createProcessor(UserAgentProcessor.class, config);
 
-        ProcessResult processResult = uaProceesor.process(doc);
+        ProcessResult processResult = uaProceesor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat(doc.hasField("ua")).isTrue();
@@ -57,7 +57,7 @@ public class UserAgentProcessorTest {
                 "prefix", prefix);
         UserAgentProcessor uaProceesor = createProcessor(UserAgentProcessor.class, config);
 
-        ProcessResult processResult = uaProceesor.process(doc);
+        ProcessResult processResult = uaProceesor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String)doc.getField(prefix + "name")).isEqualTo("Chrome");
@@ -85,7 +85,7 @@ public class UserAgentProcessorTest {
                 "targetField", targetField);
         UserAgentProcessor uaProceesor = createProcessor(UserAgentProcessor.class, config);
 
-        ProcessResult processResult = uaProceesor.process(doc);
+        ProcessResult processResult = uaProceesor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat(doc.hasField(targetField)).isTrue();
@@ -121,7 +121,7 @@ public class UserAgentProcessorTest {
         Map<String,Object> config = createConfig("field", field,
                 "targetField", targetField);
         UserAgentProcessor uaProceesor = createProcessor(UserAgentProcessor.class, config);
-        ProcessResult processResult = uaProceesor.process(doc);
+        ProcessResult processResult = uaProceesor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat(doc.hasField(targetField)).isTrue();
@@ -188,7 +188,7 @@ public class UserAgentProcessorTest {
         Map<String,Object> config = createConfig("field", field, "targetField", targetField);
         UserAgentProcessor uaProceesor = createProcessor(UserAgentProcessor.class, config);
 
-        ProcessResult processResult = uaProceesor.process(doc);
+        ProcessResult processResult = uaProceesor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat(doc.hasField("ua")).isTrue();

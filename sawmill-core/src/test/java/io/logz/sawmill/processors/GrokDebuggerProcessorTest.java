@@ -31,7 +31,7 @@ public class GrokDebuggerProcessorTest {
                 "patterns", patterns
         ));
 
-        ProcessResult processResult = grokDebuggerProcessor.process(doc);
+        ProcessResult processResult = grokDebuggerProcessor.process(doc, doc);
         assertThat(processResult.isSucceeded()).isTrue();
 
         for (String field : doc.getSource().keySet()) {
@@ -60,7 +60,7 @@ public class GrokDebuggerProcessorTest {
                 "patterns", patterns
         ));
 
-        ProcessResult processResult = grokDebuggerProcessor.process(doc);
+        ProcessResult processResult = grokDebuggerProcessor.process(doc, doc);
         assertThat(processResult.isSucceeded()).isTrue();
 
         List<Map<String, Object>> valueList = doc.getField("http-verb");

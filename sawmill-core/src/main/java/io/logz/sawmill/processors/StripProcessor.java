@@ -23,7 +23,7 @@ public class StripProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
+    public ProcessResult process(Doc doc, Doc targetDoc) {
         List<String> failedFields = new ArrayList<>();
         for (String field : fields) {
             if (!doc.hasField(field, String.class)) {
@@ -32,7 +32,7 @@ public class StripProcessor implements Processor {
             }
 
             String value = doc.getField(field);
-            doc.addField(field, value.trim());
+            targetDoc.addField(field, value.trim());
 
         }
 

@@ -25,7 +25,7 @@ public class StripProcessorTest {
 
         StripProcessor stripProcessor = createProcessor(StripProcessor.class, createConfig("fields", fields));
 
-        ProcessResult processResult = stripProcessor.process(doc);
+        ProcessResult processResult = stripProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isTrue();
         assertThat((String) doc.getField("field1")).isEqualTo("needs to be stripped");
@@ -45,7 +45,7 @@ public class StripProcessorTest {
 
         StripProcessor stripProcessor = createProcessor(StripProcessor.class, createConfig("fields", fields));
 
-        ProcessResult processResult = stripProcessor.process(doc);
+        ProcessResult processResult = stripProcessor.process(doc, doc);
 
         assertThat(processResult.isSucceeded()).isFalse();
         assertThat((String) doc.getField("field3")).isEqualTo("needs to be stripped");

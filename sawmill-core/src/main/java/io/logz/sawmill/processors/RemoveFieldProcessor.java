@@ -27,8 +27,8 @@ public class RemoveFieldProcessor implements Processor {
     }
 
     @Override
-    public ProcessResult process(Doc doc) {
-        fields.stream().map(field -> field.render(doc)).forEach(doc::removeField);
+    public ProcessResult process(Doc doc, Doc targetDoc) {
+        fields.stream().map(field -> field.render(doc)).forEach(targetDoc::removeField);
 
         return ProcessResult.success();
     }
